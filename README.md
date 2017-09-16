@@ -1,1 +1,27 @@
 "# ServiceFabric.AsyncModel" 
+
+# Inspiration  
+ 1. Event Loop  
+ 1.1. The event loop from [nodejs](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/) explained that the process will keep polling for the inputed scripts, callbacks are excuted when the event data is grabbed.  
+ 1.2. In service fabric polling is already exsiting in Stateful micro-service.  
+
+2. Async  Notification  
+2.1. Async notificaiton will do non-blocking action which just means the event message wil be pushed into an another(or the orignal queue) again,
+you may understand what the "again" means: loop is everywhere.   
+2.2. Thanks to the class `Taskcompeletionsource<T>`, we can do async nitification very easily.
+
+3. Immutable  
+3.1. I　learned it from [Redux](http://redux.js.org/): do not try to mutate an object, if necessary, just create a new one.  
+3.2. Each tutorial will tell you that immutabe set(dictionary, list, map) is thread-safe, to me, it just make debugging code easily as changes are always not in the current reference.(I'm a beginner.)
+
+4. Middleware in Asp.Net Core  
+4.1.  Aspnet core process HttpContext in middlware, if you have read the [source code](https://github.com/aspnet/HttpAbstractions/blob/594f55947f4c1d0a9d3122e3f39bcfa81199b12a/src/Microsoft.AspNetCore.Http/Internal/ApplicationBuilder.cs#L80) of Aspnet core, you will find middlware is abstracted as a deleagte.  
+4.2. you may enjoy the design of middleware because functional programming(curry, function compose) can make middleware more extenable.
+
+# Get started
+
+
+
+
+
+
