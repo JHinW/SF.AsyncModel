@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/SpeechLuisCongnitive" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="Text2IntentionService_PartitionCount" Value="1" />
+    <Parameter Name="Text2IntentionService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="Text2IntentionService_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="Speech2TextService_PartitionCount" Value="1" />
+    <Parameter Name="Speech2TextService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="Speech2TextService_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="Silk2WavService_PartitionCount" Value="1" />
+    <Parameter Name="Silk2WavService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="Silk2WavService_TargetReplicaSetSize" Value="3" />
     <Parameter Name="SpeechEntry_InstanceCount" Value="-1" />
   </Parameters>
 </Application>

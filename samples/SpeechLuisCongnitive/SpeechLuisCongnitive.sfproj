@@ -32,7 +32,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Silk2WavService\Silk2WavService.csproj" />
+    <ProjectReference Include="..\Speech2TextService\Speech2TextService.csproj" />
     <ProjectReference Include="..\SpeechEntry\SpeechEntry.csproj" />
+    <ProjectReference Include="..\Text2IntentionService\Text2IntentionService.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>
