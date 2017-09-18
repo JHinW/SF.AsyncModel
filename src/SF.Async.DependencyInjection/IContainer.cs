@@ -7,9 +7,7 @@ namespace SF.Async.DependencyInjection
     /// </summary>
     public interface IContainer
     {
-         void AddInstance(string key, Object service);
-
-         T GetInstance<T>(string key);
+         void AddInstance(string key, EasyInstance instance);
 
          void RemoveInstance<T>(string key);
     }

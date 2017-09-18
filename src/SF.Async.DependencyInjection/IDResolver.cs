@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SF.Async.DependencyInjection
 {
-    public interface IDependency
+    public interface IDResolver
     {
-        
+        TInstance GetInstance<TInstance>();
     }
 }

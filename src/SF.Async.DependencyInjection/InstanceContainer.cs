@@ -16,12 +16,12 @@ namespace SF.Async.DependencyInjection
             _container = ImmutableDictionary<string, Object>.Empty;
         }
 
-        public void AddInstance(string key, object service)
+        public void AddInstance(string key, EasyInstance service)
         {
             _container = _container.Add(key, service);
         }
 
-        public T GetInstance<T>(string key)
+        private T GetInstance<T>(string key)
         {
             return (T)_container[key];
         }
@@ -30,5 +30,7 @@ namespace SF.Async.DependencyInjection
         {
             _container = _container.Remove(key);
         }
+
+
     }
 }
