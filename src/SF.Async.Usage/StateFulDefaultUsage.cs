@@ -125,7 +125,9 @@ namespace SF.Async.Usage
                 if (signalPack.HasValue)
                 {
                     signalPack.Value.SetResult(immutables);
-                } 
+                }
+
+                await tx.CommitAsync();
             }
 
         }

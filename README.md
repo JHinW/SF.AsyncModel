@@ -18,7 +18,7 @@ you may understand what the "again" means: loop is everywhere.
 
 4. Middleware in Asp.Net Core  
 4.1.  Aspnet core process HttpContext in middlware, if you have read the [source code](https://github.com/aspnet/HttpAbstractions/blob/594f55947f4c1d0a9d3122e3f39bcfa81199b12a/src/Microsoft.AspNetCore.Http/Internal/ApplicationBuilder.cs#L80) of Aspnet core, you will find middlware is abstracted as a deleagte.  
-4.2. you may enjoy the design of this kind of middleware because functional programming(curry, function compose) can make middleware more extenable.
+4.2. you may enjoy the design of this kind of middleware because functional programming(curry, function compose) can make middleware more extendable.
 
 # Get started
 

@@ -6,11 +6,11 @@ using System.IO;
 
 namespace SpeechEntry.src
 {
-    public class BinaryFormatter: InputFormatter
+    public class BinaryFormatterTest: InputFormatter
     {
         private static Type _supportedType = typeof(byte[]);
 
-        public BinaryFormatter()
+        public BinaryFormatterTest()
         {
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/octet-stream"));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/wav"));
