@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SF.Async.DependencyInjection.Items;
+using System;
 
 namespace SF.Async.DependencyInjection
 {
@@ -7,8 +8,8 @@ namespace SF.Async.DependencyInjection
     /// </summary>
     public interface IContainer
     {
-         void AddInstance(string key, EasyInstance instance);
+         void AddDescriptor(string key, EasyTypeDescriptor instance);
 
-         void RemoveInstance<T>(string key);
+         EasyTypeDescriptorItem RemoveInstance(string key);
     }
 }

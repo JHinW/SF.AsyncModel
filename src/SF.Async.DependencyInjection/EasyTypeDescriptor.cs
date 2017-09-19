@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SF.Async.DependencyInjection
 {
-    using TypeFactory = Func<IDResolver, Type>;
-    public class EasyInstance
+    using TypeFactory = Func<ITypeResolver, Type>;
+    public class EasyTypeDescriptor
     {
-        private EasyInstance(Type serviceType)
+        private EasyTypeDescriptor(Type serviceType)
         {
             ServiceType = serviceType;
         }
 
-        public EasyInstance(
+        public EasyTypeDescriptor(
             Type serviceType,
             Type implementationType): this(serviceType)
         {
@@ -22,14 +22,14 @@ namespace SF.Async.DependencyInjection
             ImplementationType = implementationType;
         }
 
-        public EasyInstance(
+        public EasyTypeDescriptor(
             Type serviceType,
             TypeFactory factory): this(serviceType)
         {
             ImplementationFactory = factory;
         }
 
-        public EasyInstance(
+        public EasyTypeDescriptor(
             Type serviceType,
             object instance): this(serviceType)
         {
@@ -42,23 +42,23 @@ namespace SF.Async.DependencyInjection
 
         public Type ImplementationType { get; }
 
-        public Func<IDResolver, object> ImplementationFactory { get; }
+        public Func<ITypeResolver, object> ImplementationFactory { get; }
 
         public object ImplementationInstance { get; }
 
-        public static EasyInstance Create(Type serviceType, Type implementationType)
+        public static EasyTypeDescriptor Create(Type serviceType, Type implementationType)
         {
-            return new EasyInstance(serviceType, implementationType);
+            return new EasyTypeDescriptor(serviceType, implementationType);
         }
 
-        public static EasyInstance Create(Type serviceType, TypeFactory factory)
+        public static EasyTypeDescriptor Create(Type serviceType, TypeFactory factory)
         {
-            return new EasyInstance(serviceType, factory);
+            return new EasyTypeDescriptor(serviceType, factory);
         }
 
-        public static EasyInstance Create(Type serviceType, object instance)
+        public static EasyTypeDescriptor Create(Type serviceType, object instance)
         {
-            return new EasyInstance(serviceType, instance);
+            return new EasyTypeDescriptor(serviceType, instance);
         }
     }
 }
