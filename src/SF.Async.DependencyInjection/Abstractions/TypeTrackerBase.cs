@@ -12,33 +12,21 @@ namespace SF.Async.DependencyInjection.Abstractions
 {
     public abstract class TypeTrackerBase : ITypeTracker, ITypeResolver
     {
-        private BaseTypeToDescriptorItem _baseTypeToDescriptorItem;
 
-        public Type[] GetConstructorParamTypes(Type implementType)
+        public BaseTypeToDescriptorItemDelegate _baseTypeToDescriptorItemDelegate;
+
+        public ResolveCheckDelegate _resolveCheckDelegate;
+
+        public TypeTrackerBase(
+            BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
+            ResolveCheckDelegate resolveCheckDelegate
+            )
         {
-            var generics = implementType.GetGenericArguments();
-
-            return null;
-
+            _baseTypeToDescriptorItemDelegate = baseTypeToDescriptorItemDelegate;
+            _resolveCheckDelegate = resolveCheckDelegate;
         }
 
-
-        private Object ConstructInstanceFromImplementedType(Type implementType)
-        {
-            return null;
-        }
-
-        public DIDelegatesDefinitions.TypeResolverDelegate GetResolverDelegate(EasyTypeDescriptor easyTypeDescriptor)
-        {
-           // var 
-
-            return type =>
-            {
-
-                return null;
-            };
-        }
-
+       
         public virtual object EasyTypeDescriptorToInstance(EasyTypeDescriptor easyTypeDescriptor)
         {
             if(easyTypeDescriptor.ImplementationFactory != null)
@@ -85,7 +73,7 @@ namespace SF.Async.DependencyInjection.Abstractions
             if (argTypes.Length == 1)
             {
                 var outs = new List<object>();
-                var descriptor = _baseTypeToDescriptorItem(argTypes[0]);
+                var descriptor = _baseTypeToDescriptorItemDelegate(argTypes[0]);
                 for(var i = 0; i< descriptor.Count; i++)
                 {
                     outs.Add(EasyTypeDescriptorToInstance(descriptor[i]));
@@ -98,12 +86,12 @@ namespace SF.Async.DependencyInjection.Abstractions
 
         private object GetInstanceFromNormalBaseType(Type baseType)
         {
-            return EasyTypeDescriptorToInstance(_baseTypeToDescriptorItem(baseType).Last);
+            return EasyTypeDescriptorToInstance(_baseTypeToDescriptorItemDelegate(baseType).Last);
         }
 
         public bool CanBeResolve(Type baseType)
         {
-            throw new NotImplementedException();
+            return _resolveCheckDelegate(baseType);
         }
     }
 }

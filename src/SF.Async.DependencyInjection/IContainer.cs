@@ -1,5 +1,4 @@
-﻿using SF.Async.DependencyInjection.Items;
-using System;
+﻿using System;
 
 namespace SF.Async.DependencyInjection
 {
@@ -11,5 +10,7 @@ namespace SF.Async.DependencyInjection
          void AddDescriptor(Type key, EasyTypeDescriptor instance);
 
          EasyTypeDescriptorItem RemoveInstance(Type key);
+
+        ITypeResolver CreateTypeResolver();
     }
 }

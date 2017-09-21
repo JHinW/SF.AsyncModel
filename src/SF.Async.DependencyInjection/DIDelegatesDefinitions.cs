@@ -1,9 +1,4 @@
-﻿using SF.Async.DependencyInjection.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace SF.Async.DependencyInjection
 {
@@ -13,6 +8,9 @@ namespace SF.Async.DependencyInjection
         public delegate object TypeResolverDelegate(EasyTypeDescriptor easyTypeDescriptor);
 
 
-        public delegate EasyTypeDescriptorItem BaseTypeToDescriptorItem(Type baseType);
+        public delegate EasyTypeDescriptorItem BaseTypeToDescriptorItemDelegate(Type baseType);
+
+
+        public delegate bool ResolveCheckDelegate(Type baseType);
     }
 }

@@ -1,19 +1,13 @@
-﻿using SF.Async.DependencyInjection.Items;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SF.Async.DependencyInjection.Items
+namespace SF.Async.DependencyInjection.Abstractions
 {
-    public class EasyTypeDescriptorContainer: IContainer
+    public abstract class ContainerBase: IContainer
     {
         private ConcurrentDictionary<Type, EasyTypeDescriptorItem> _container;
 
-        public EasyTypeDescriptorContainer()
+        public ContainerBase()
         {
             _container = new ConcurrentDictionary<Type, EasyTypeDescriptorItem>();
         }
@@ -41,9 +35,11 @@ namespace SF.Async.DependencyInjection.Items
             return value;
         }
 
-        private bool IsHasKey(Type key)
+        protected bool IsHasKey(Type key)
         {
             return _container.ContainsKey(key);
         }
+
+        public abstract ITypeResolver CreateTypeResolver();
     }
 }
