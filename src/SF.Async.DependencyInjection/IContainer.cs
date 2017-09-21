@@ -11,6 +11,8 @@ namespace SF.Async.DependencyInjection
 
          EasyTypeDescriptorItem RemoveInstance(Type key);
 
-        ITypeResolver CreateTypeResolver();
+         ITypeResolver CreateTypeResolver();
+
+        void Sync();
     }
 }

@@ -41,5 +41,10 @@ namespace SF.Async.DependencyInjection.Abstractions
         }
 
         public abstract ITypeResolver CreateTypeResolver();
+
+        public void Sync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
