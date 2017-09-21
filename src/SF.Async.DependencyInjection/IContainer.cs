@@ -8,8 +8,8 @@ namespace SF.Async.DependencyInjection
     /// </summary>
     public interface IContainer
     {
-         void AddDescriptor(string key, EasyTypeDescriptor instance);
+         void AddDescriptor(Type key, EasyTypeDescriptor instance);
 
-         EasyTypeDescriptorItem RemoveInstance(string key);
+         EasyTypeDescriptorItem RemoveInstance(Type key);
     }
 }

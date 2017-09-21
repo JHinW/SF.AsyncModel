@@ -9,6 +9,10 @@ namespace SF.Async.DependencyInjection
 {
     public interface ITypeTracker
     {
-        TypeResolverDelegate GetResolverDelegate(Type type);
+        TypeResolverDelegate GetResolverDelegate(EasyTypeDescriptor easyTypeDescriptor);
+
+        Type[] GetConstructorParamTypes(Type type);
+
+
     }
 }

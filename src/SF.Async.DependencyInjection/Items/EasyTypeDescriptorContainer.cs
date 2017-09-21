@@ -11,23 +11,23 @@ namespace SF.Async.DependencyInjection.Items
 {
     public class EasyTypeDescriptorContainer: IContainer
     {
-        private ConcurrentDictionary<string, EasyTypeDescriptorItem> _container;
+        private ConcurrentDictionary<Type, EasyTypeDescriptorItem> _container;
 
         public EasyTypeDescriptorContainer()
         {
-            _container = new ConcurrentDictionary<string, EasyTypeDescriptorItem>();
+            _container = new ConcurrentDictionary<Type, EasyTypeDescriptorItem>();
         }
 
-        public void AddDescriptor(string key, EasyTypeDescriptor descriptor)
+        public void AddDescriptor(Type key, EasyTypeDescriptor descriptor)
         {
 
-            var item = new EasyTypeDescriptorItem();      
+            var item = new EasyTypeDescriptorItem();
             _container.AddOrUpdate(key, item.Add(descriptor), (_key, oldValue) =>{
                 return oldValue.Add(descriptor);
             });
         }
 
-        public EasyTypeDescriptorItem this[string index]
+        public EasyTypeDescriptorItem this[Type index]
         {
             get
             {
@@ -35,12 +35,15 @@ namespace SF.Async.DependencyInjection.Items
             }
         }
 
-        public EasyTypeDescriptorItem RemoveInstance(string key)
+        public EasyTypeDescriptorItem RemoveInstance(Type key)
         {
             _container.TryRemove(key, out EasyTypeDescriptorItem value);
             return value;
         }
 
-
+        private bool IsHasKey(Type key)
+        {
+            return _container.ContainsKey(key);
+        }
     }
 }

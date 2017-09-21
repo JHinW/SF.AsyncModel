@@ -8,6 +8,8 @@ namespace SF.Async.DependencyInjection
 {
     public interface ITypeResolver
     {
-        TInstance GetInstance<TInstance>();
+        Object GetInstance(Type baseType);
+
+        bool CanBeResolve(Type baseType);
     }
 }
