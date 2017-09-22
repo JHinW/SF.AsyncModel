@@ -17,6 +17,8 @@ namespace SF.Async.DependencyInjection.Abstractions
 
         public ResolveCheckDelegate _resolveCheckDelegate;
 
+
+
         public TypeTrackerBase(
             BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
             ResolveCheckDelegate resolveCheckDelegate
@@ -29,22 +31,9 @@ namespace SF.Async.DependencyInjection.Abstractions
        
         public virtual object EasyTypeDescriptorToInstance(EasyTypeDescriptor easyTypeDescriptor)
         {
-            if(easyTypeDescriptor.ImplementationFactory != null)
-            {
-                return easyTypeDescriptor.ImplementationFactory(this);
-            }
+            var ret =  easyTypeDescriptor.AsLazy(this);
 
-            if(easyTypeDescriptor.ImplementationInstance != null)
-            {
-                return easyTypeDescriptor.ImplementationInstance;
-            }
-
-            if (easyTypeDescriptor.ImplementationType != null)
-            {
-                return easyTypeDescriptor.ImplementationType.TypeAsObject(this);
-            }
-
-            return null;
+            return ret.Value;
         }
 
         public object GetInstance(Type baseType)
@@ -58,7 +47,7 @@ namespace SF.Async.DependencyInjection.Abstractions
                 }
                 else
                 {
-                    throw new InvalidOperationException("hi");
+                    throw new InvalidOperationException("Error: Invalid type for instantiating.");
                 }
             }
             else
@@ -81,7 +70,11 @@ namespace SF.Async.DependencyInjection.Abstractions
 
                 return outs;
             }
-            return null;
+            else
+            {
+                throw new InvalidOperationException("Error: Invalid type for instantiating.");
+            }
+
         }
 
         private object GetInstanceFromNormalBaseType(Type baseType)
@@ -92,6 +85,11 @@ namespace SF.Async.DependencyInjection.Abstractions
         public bool CanBeResolve(Type baseType)
         {
             return _resolveCheckDelegate(baseType);
+        }
+
+        public EasyTypeDescriptorItem DecriptorResolve(Type baseType)
+        {
+            return _baseTypeToDescriptorItemDelegate(baseType);
         }
     }
 }

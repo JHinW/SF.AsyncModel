@@ -11,5 +11,7 @@ namespace SF.Async.DependencyInjection
         Object GetInstance(Type baseType);
 
         bool CanBeResolve(Type baseType);
+
+        EasyTypeDescriptorItem DecriptorResolve(Type baseType);
     }
 }
