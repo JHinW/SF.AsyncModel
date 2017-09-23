@@ -4,6 +4,8 @@ namespace SF.Async.EasyDI
 {
     public interface ITypeCompiler
     {
+        ITypeCompiler[] ChildrenCompiler { get;}
+
         ITypeCompiler DependencyTo(ITypeCompiler typeCompiler);
 
         bool IsCompiled { get; }

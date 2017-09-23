@@ -8,6 +8,8 @@ namespace SF.Async.EasyDI.Compiler
 
         public bool IsCompiled { get => _isCompiled; }
 
+        public ITypeCompiler[] ChildrenCompiler => null;
+
         private Lazy<Object> _lazy = null;
 
         public LazyCompiler(Func<Object> action)

@@ -1,4 +1,7 @@
 ﻿using SF.Async.EasyDI.Compiler;
+using System;
+using System.Collections;
+using System.Linq;
 
 namespace SF.Async.EasyDI.Extensions
 {
@@ -9,7 +12,7 @@ namespace SF.Async.EasyDI.Extensions
             if (isIEnumerable)
             {
 
-                var compiler = new TypeCompiler(isIEnumerable, null, resolver);
+                var compiler = new EnumTypeCompiler();
 
                 for (var i = 0; i < item.Count; i++ )
                 {
@@ -23,5 +26,18 @@ namespace SF.Async.EasyDI.Extensions
                 return item.Last.AsCompiler(resolver);
             }
         }
+
+        public static ITypeCompiler AsCompiler(this EasyTypeDescriptorItem item, Type baseType, ITypeResolver resolver)
+        {
+            if (resolver.CanBeResolve(baseType))
+            {
+                return item.AsCompiler((baseType is IEnumerable), resolver);
+            }
+            else
+            {
+                throw new InvalidCastException("Error: Can not be resolved!");
+            }
+        }
+
     }
 }

@@ -94,7 +94,7 @@ namespace SF.Async.EasyDI.Extensions
                 throw new InvalidOperationException("Error: No appropriate constructor.");
             }
 
-            return new TypeCompiler(false, bestConstructor, resolver);
+            return new ConstructorCompiler(bestConstructor, resolver);
         }
 
     }

@@ -6,7 +6,7 @@ using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Abstractions
 {
-    public abstract class TypeTrackerBase : ITypeTracker, ITypeResolver
+    public abstract class TypeTrackerBase : ITypeResolver
     {
 
         public BaseTypeToDescriptorItemDelegate _baseTypeToDescriptorItemDelegate;
@@ -24,59 +24,22 @@ namespace SF.Async.EasyDI.Abstractions
             _resolveCheckDelegate = resolveCheckDelegate;
         }
 
-       
-        public virtual object EasyTypeDescriptorToInstance(EasyTypeDescriptor easyTypeDescriptor)
-        {
-            var ret =  easyTypeDescriptor.AsLazy(this);
-
-            return ret.Value;
-        }
 
         public object GetInstance(Type baseType)
         {
-            if (baseType.IsGenericType)
+            if (_resolveCheckDelegate(baseType))
             {
-                if(baseType is IEnumerable)
-                {
-                    return GetInstanceFromEnumerableBaseType(baseType);
-
-                }
-                else
-                {
-                    throw new InvalidOperationException("Error: Invalid type for instantiating.");
-                }
+                var item = _baseTypeToDescriptorItemDelegate(baseType);
+                var compiler = item.AsCompiler(baseType, this);
+                return compiler.Compile().Link();
             }
             else
             {
-                return GetInstanceFromNormalBaseType(baseType);
+                throw new InvalidOperationException("Error: Can not be resolved!");
             }
         }
         
-        private object GetInstanceFromEnumerableBaseType(Type baseType)
-        {
-            var argTypes = baseType.GetGenericArguments();
-            if (argTypes.Length == 1)
-            {
-                var outs = new List<object>();
-                var descriptor = _baseTypeToDescriptorItemDelegate(argTypes[0]);
-                for(var i = 0; i< descriptor.Count; i++)
-                {
-                    outs.Add(EasyTypeDescriptorToInstance(descriptor[i]));
-                }
 
-                return outs;
-            }
-            else
-            {
-                throw new InvalidOperationException("Error: Invalid type for instantiating.");
-            }
-
-        }
-
-        private object GetInstanceFromNormalBaseType(Type baseType)
-        {
-            return EasyTypeDescriptorToInstance(_baseTypeToDescriptorItemDelegate(baseType).Last);
-        }
 
         public bool CanBeResolve(Type baseType)
         {
@@ -85,6 +48,8 @@ namespace SF.Async.EasyDI.Abstractions
 
         public EasyTypeDescriptorItem DecriptorResolve(Type baseType)
         {
+            //if (CanBeResolve(baseType)) throw new InvalidOperationException("Error: Can not be resolved!");
+
             return _baseTypeToDescriptorItemDelegate(baseType);
         }
     }

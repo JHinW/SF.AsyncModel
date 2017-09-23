@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class TypeCompiler : ITypeCompiler
+    public class ConstructorCompiler : ITypeCompiler
     {
         private IList<ITypeCompiler> _compilerList = new List<ITypeCompiler>();
 
@@ -21,9 +21,8 @@ namespace SF.Async.EasyDI.Compiler
 
         private ITypeResolver _resolver;
 
-        public TypeCompiler(bool isIEnumerable, ConstructorInfo constructorInfo, ITypeResolver resolver)
+        public ConstructorCompiler(ConstructorInfo constructorInfo, ITypeResolver resolver)
         {
-            IsIEnumerable = isIEnumerable;
             constructorInfo = _constructorInfo;
             _resolver = resolver;
         }
@@ -31,6 +30,8 @@ namespace SF.Async.EasyDI.Compiler
         public bool IsIEnumerable { get; }
 
         public bool IsCompiled { get => _isCompiled; }
+
+        public ITypeCompiler[] ChildrenCompiler { get=> _compilerList.ToArray(); }
 
         public ITypeCompiler DependencyTo(ITypeCompiler typeCompiler)
         {
@@ -52,36 +53,14 @@ namespace SF.Async.EasyDI.Compiler
         {
             if (!_isCompiled)
             {
-                var paras = _constructorInfo.GetParameters();
-                foreach (var para in paras)
+                if(_constructorInfo != null)
                 {
-                    _compilerList.Add(
-                        _resolver
-                        .DecriptorResolve(para.ParameterType)
-                        .AsCompiler((para.ParameterType is IEnumerable), _resolver));
-                }
-
-                var param = _compilerList.Select(linker =>
-                {
-                    return linker.Compile().Link();
-                }).ToArray();
-
-                Object results = null;
-
-                if (_constructorInfo == null && IsIEnumerable)
-                {
-                    results = param;
+                    _typeCompiler = _constructorInfo.AsCompiler(this, _resolver);
                 }
                 else
                 {
-                    results = _constructorInfo.Invoke(param);
+                    throw new InvalidOperationException("Error: ConstructorInfo is null");
                 }
-
-                _typeCompiler = new LazyCompiler(() =>
-                {
-                    return results;
-
-                });
                 _isCompiled = true;
             }
             
