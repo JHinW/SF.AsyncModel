@@ -1,14 +1,10 @@
-﻿using SF.Async.DependencyInjection.Extensions;
+﻿using SF.Async.EasyDI.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static SF.Async.DependencyInjection.DIDelegatesDefinitions;
+using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
-namespace SF.Async.DependencyInjection.Abstractions
+namespace SF.Async.EasyDI.Abstractions
 {
     public abstract class TypeTrackerBase : ITypeTracker, ITypeResolver
     {

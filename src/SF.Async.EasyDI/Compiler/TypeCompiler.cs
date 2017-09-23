@@ -1,4 +1,4 @@
-﻿using SF.Async.DependencyInjection.Extensions;
+﻿using SF.Async.EasyDI.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SF.Async.DependencyInjection.Compiler
+namespace SF.Async.EasyDI.Compiler
 {
     public class TypeCompiler : ITypeCompiler
     {
@@ -66,20 +66,20 @@ namespace SF.Async.DependencyInjection.Compiler
                     return linker.Compile().Link();
                 }).ToArray();
 
-                Object outs = null;
+                Object results = null;
 
                 if (_constructorInfo == null && IsIEnumerable)
                 {
-                    outs = param;
+                    results = param;
                 }
                 else
                 {
-                    outs = _constructorInfo.Invoke(param);
+                    results = _constructorInfo.Invoke(param);
                 }
 
                 _typeCompiler = new LazyCompiler(() =>
                 {
-                    return outs;
+                    return results;
 
                 });
                 _isCompiled = true;

@@ -1,11 +1,7 @@
-﻿using SF.Async.DependencyInjection.Compiler;
+﻿using SF.Async.EasyDI.Compiler;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SF.Async.DependencyInjection.Extensions
+namespace SF.Async.EasyDI.Extensions
 {
     public static class EasyTypeDescriptorExtension
     {

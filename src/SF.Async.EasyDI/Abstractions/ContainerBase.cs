@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace SF.Async.DependencyInjection.Abstractions
+namespace SF.Async.EasyDI.Abstractions
 {
     public abstract class ContainerBase: IContainer
     {

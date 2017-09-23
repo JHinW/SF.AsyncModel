@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SF.Async.DependencyInjection
+namespace SF.Async.EasyDI
 {
     public class DIDelegatesDefinitions
     {

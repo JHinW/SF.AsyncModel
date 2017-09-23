@@ -1,8 +1,8 @@
-﻿using SF.Async.DependencyInjection.Abstractions;
+﻿using SF.Async.EasyDI.Abstractions;
 using System;
 using System.Collections.Concurrent;
 
-namespace SF.Async.DependencyInjection.Usages
+namespace SF.Async.EasyDI.Usages
 {
     public class EasyTypeContainer: ContainerBase
     {    

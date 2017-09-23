@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SF.Async.DependencyInjection
+namespace SF.Async.EasyDI
 {
     //using OwnedImmutableList = ImmutableList<EasyTypeDescriptor>;
     public struct EasyTypeDescriptorItem
