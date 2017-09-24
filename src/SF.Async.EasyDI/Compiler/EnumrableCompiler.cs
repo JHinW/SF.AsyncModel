@@ -1,4 +1,5 @@
-﻿using SF.Async.EasyDI.Statics;
+﻿using SF.Async.EasyDI.Abstractions;
+using SF.Async.EasyDI.Statics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class EnumrableCompiler : ICompiler
+    public class EnumrableCompiler : CompilerBase
     {
-        private IList<ICompiler> _compilerList = new List<ICompiler>();
-
-        public bool _isCompiled = false;
-
         private ICompiler _typeCompiler;
 
         private Type _type;
@@ -22,17 +19,7 @@ namespace SF.Async.EasyDI.Compiler
             _type = type;
         }
 
-        public ICompiler[] ChildrenCompiler => _compilerList.ToArray();
-
-        public bool IsCompiled => _isCompiled;
-
-        public ICompiler DependencyTo(ICompiler typeCompiler)
-        {
-            _compilerList.Add(typeCompiler);
-            return this;
-        }
-
-        public ICompiler Compile()
+        public override ICompiler Compile()
         {
             if (!IsCompiled)
             {
@@ -56,7 +43,7 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public object Link()
+        public override object Link()
         {
             return _typeCompiler.Compile().Link();
         }

@@ -1,15 +1,10 @@
-﻿using System;
+﻿using SF.Async.EasyDI.Abstractions;
+using System;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class LazyCompiler : ICompiler
+    public class LazyCompiler : CompilerBase
     {
-        private bool _isCompiled = false;
-
-        public bool IsCompiled { get => _isCompiled; }
-
-        public ICompiler[] ChildrenCompiler => null;
-
         private Lazy<Object> _lazy = null;
 
         private Type _originalType;
@@ -17,15 +12,17 @@ namespace SF.Async.EasyDI.Compiler
         public LazyCompiler(Func<Object> action)
         {
             _lazy = new Lazy<object>(action);
+            this._compilerList = null;
         }
 
         public LazyCompiler(Func<Object> action, Type type)
         {
             _lazy = new Lazy<object>(action);
             _originalType = type;
+            this._compilerList = null;
         }
 
-        public ICompiler Compile()
+        public override ICompiler Compile()
         {
             if (!_isCompiled)
             {
@@ -35,12 +32,7 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public ICompiler DependencyTo(ICompiler typeCompiler)
-        {
-            return this;
-        }
-
-        public object Link()
+        public override object Link()
         {
             return _lazy != null? _lazy.Value : null;
         }
