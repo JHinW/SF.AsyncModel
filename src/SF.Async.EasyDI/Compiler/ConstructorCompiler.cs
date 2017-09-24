@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class ConstructorCompiler : ITypeCompiler
+    public class ConstructorCompiler : ICompiler
     {
-        private IList<ITypeCompiler> _compilerList = new List<ITypeCompiler>();
+        private IList<ICompiler> _compilerList = new List<ICompiler>();
 
         private ConstructorInfo _constructorInfo = null;
 
         private bool _isCompiled = false;
 
-        private ITypeCompiler _typeCompiler;
+        private ICompiler _typeCompiler;
 
-        private ITypeResolver _resolver;
+        private IResolver _resolver;
 
-        public ConstructorCompiler(ConstructorInfo constructorInfo, ITypeResolver resolver)
+        public ConstructorCompiler(ConstructorInfo constructorInfo, IResolver resolver)
         {
             constructorInfo = _constructorInfo;
             _resolver = resolver;
@@ -31,15 +31,15 @@ namespace SF.Async.EasyDI.Compiler
 
         public bool IsCompiled { get => _isCompiled; }
 
-        public ITypeCompiler[] ChildrenCompiler { get=> _compilerList.ToArray(); }
+        public ICompiler[] ChildrenCompiler { get=> _compilerList.ToArray(); }
 
-        public ITypeCompiler DependencyTo(ITypeCompiler typeCompiler)
+        public ICompiler DependencyTo(ICompiler typeCompiler)
         {
             _compilerList.Add(typeCompiler);
             return this;
         }
 
-        public ITypeCompiler DependencyTo(ITypeCompiler[] typeCompilers)
+        public ICompiler DependencyTo(ICompiler[] typeCompilers)
         {
             foreach (var compiler in typeCompilers)
             {
@@ -49,7 +49,7 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public ITypeCompiler Compile()
+        public ICompiler Compile()
         {
             if (!_isCompiled)
             {

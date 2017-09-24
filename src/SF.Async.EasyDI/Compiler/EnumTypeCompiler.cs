@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class EnumTypeCompiler : ITypeCompiler
+    public class EnumTypeCompiler : ICompiler
     {
-        private IList<ITypeCompiler> _compilerList = new List<ITypeCompiler>();
+        private IList<ICompiler> _compilerList = new List<ICompiler>();
 
         public bool _isCompiled = false;
 
@@ -18,18 +18,18 @@ namespace SF.Async.EasyDI.Compiler
         }
 
 
-        public ITypeCompiler[] ChildrenCompiler => _compilerList.ToArray();
+        public ICompiler[] ChildrenCompiler => _compilerList.ToArray();
 
         public bool IsCompiled => _isCompiled;
 
 
-        public ITypeCompiler DependencyTo(ITypeCompiler typeCompiler)
+        public ICompiler DependencyTo(ICompiler typeCompiler)
         {
             _compilerList.Add(typeCompiler);
             return this;
         }
 
-        public ITypeCompiler DependencyTo(ITypeCompiler[] typeCompilers)
+        public ICompiler DependencyTo(ICompiler[] typeCompilers)
         {
             foreach (var compiler in typeCompilers)
             {
@@ -40,7 +40,7 @@ namespace SF.Async.EasyDI.Compiler
         }
 
 
-        public ITypeCompiler Compile()
+        public ICompiler Compile()
         {
             if (!IsCompiled)
             {

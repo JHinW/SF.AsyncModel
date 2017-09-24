@@ -2,13 +2,13 @@
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class LazyCompiler : ITypeCompiler
+    public class LazyCompiler : ICompiler
     {
         private bool _isCompiled = false;
 
         public bool IsCompiled { get => _isCompiled; }
 
-        public ITypeCompiler[] ChildrenCompiler => null;
+        public ICompiler[] ChildrenCompiler => null;
 
         private Lazy<Object> _lazy = null;
 
@@ -17,7 +17,7 @@ namespace SF.Async.EasyDI.Compiler
             _lazy = new Lazy<object>(action);
         }
 
-        public ITypeCompiler Compile()
+        public ICompiler Compile()
         {
             if (!_isCompiled)
             {
@@ -27,7 +27,7 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public ITypeCompiler DependencyTo(ITypeCompiler typeCompiler)
+        public ICompiler DependencyTo(ICompiler typeCompiler)
         {
             return this;
         }

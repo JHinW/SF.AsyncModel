@@ -10,7 +10,7 @@ namespace SF.Async.EasyDI.Usages
         {
         }
 
-        public override ITypeResolver CreateTypeResolver()
+        public override IResolver CreateTypeResolver()
         {
             return new TypeResolver(
                 type => this[type],

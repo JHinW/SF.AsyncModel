@@ -3,7 +3,7 @@ using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Usages
 {
-    public class TypeResolver : TypeTrackerBase
+    public class TypeResolver : TypeResolverBase
     {
         public TypeResolver(
           BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,

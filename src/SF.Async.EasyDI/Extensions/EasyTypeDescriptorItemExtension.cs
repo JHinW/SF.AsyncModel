@@ -7,7 +7,7 @@ namespace SF.Async.EasyDI.Extensions
 {
     public static class EasyTypeDescriptorItemExtension
     {
-        public static ITypeCompiler AsCompiler(this EasyTypeDescriptorItem item, bool isIEnumerable, ITypeResolver resolver)
+        public static ICompiler AsCompiler(this EasyTypeDescriptorItem item, bool isIEnumerable, IResolver resolver)
         {
             if (isIEnumerable)
             {
@@ -27,7 +27,7 @@ namespace SF.Async.EasyDI.Extensions
             }
         }
 
-        public static ITypeCompiler AsCompiler(this EasyTypeDescriptorItem item, Type baseType, ITypeResolver resolver)
+        public static ICompiler AsCompiler(this EasyTypeDescriptorItem item, Type baseType, IResolver resolver)
         {
             if (resolver.CanBeResolve(baseType))
             {

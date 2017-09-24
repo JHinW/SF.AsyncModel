@@ -2,7 +2,7 @@
 
 namespace SF.Async.EasyDI
 {
-    public interface ITypeResolver
+    public interface IResolver
     {
         Object GetInstance(Type baseType);
 

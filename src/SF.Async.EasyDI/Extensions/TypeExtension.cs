@@ -10,7 +10,7 @@ namespace SF.Async.EasyDI.Extensions
     public static class TypeExtension
     {  
         public static object AsInstance(this Type implementedType, 
-            ITypeResolver resolver, 
+            IResolver resolver, 
             Func<IEnumerable<Type>, IEnumerable<Object>> transfer)
         {
             var constructors = implementedType.GetTypeInfo()
@@ -47,7 +47,7 @@ namespace SF.Async.EasyDI.Extensions
             return null;
         }
 
-        public static object AsInstance(this Type implementedType, ITypeResolver resolver)
+        public static object AsInstance(this Type implementedType, IResolver resolver)
         {
             return implementedType.AsInstance(resolver, typeList => {
                 if(typeList.Count() > 0 )
@@ -63,7 +63,7 @@ namespace SF.Async.EasyDI.Extensions
         }
 
 
-        public static ITypeCompiler AsCompiler(this Type implementedType, ITypeResolver resolver)
+        public static ICompiler AsCompiler(this Type implementedType, IResolver resolver)
         {
             var constructors = implementedType.GetTypeInfo()
               .DeclaredConstructors

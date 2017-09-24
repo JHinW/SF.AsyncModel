@@ -6,7 +6,7 @@ using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Abstractions
 {
-    public abstract class TypeTrackerBase : ITypeResolver
+    public abstract class TypeResolverBase : IResolver
     {
 
         public BaseTypeToDescriptorItemDelegate _baseTypeToDescriptorItemDelegate;
@@ -15,7 +15,7 @@ namespace SF.Async.EasyDI.Abstractions
 
 
 
-        public TypeTrackerBase(
+        public TypeResolverBase(
             BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
             ResolveCheckDelegate resolveCheckDelegate
             )

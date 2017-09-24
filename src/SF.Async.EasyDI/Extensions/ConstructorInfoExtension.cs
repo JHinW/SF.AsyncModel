@@ -10,10 +10,10 @@ namespace SF.Async.EasyDI.Extensions
 {
     public static class ConstructorInfoExtension
     {
-        public static ITypeCompiler AsCompiler(
+        public static ICompiler AsCompiler(
             this ConstructorInfo constructor,
-            ITypeCompiler parentCompiler,
-            ITypeResolver typeResolver)
+            ICompiler parentCompiler,
+            IResolver typeResolver)
         {
             if (constructor == null)
             {

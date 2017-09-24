@@ -40,7 +40,7 @@ namespace SF.Async.EasyDI.Abstractions
             return _container.ContainsKey(key);
         }
 
-        public abstract ITypeResolver CreateTypeResolver();
+        public abstract IResolver CreateTypeResolver();
 
         public void Sync()
         {

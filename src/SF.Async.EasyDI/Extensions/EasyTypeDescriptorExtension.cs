@@ -5,7 +5,7 @@ namespace SF.Async.EasyDI.Extensions
 {
     public static class EasyTypeDescriptorExtension
     {
-        public static Lazy<object> AsLazy(this EasyTypeDescriptor descriptor, ITypeResolver resolver)
+        public static Lazy<object> AsLazy(this EasyTypeDescriptor descriptor, IResolver resolver)
         {
             if (descriptor.ImplementationFactory != null)
             {
@@ -40,7 +40,7 @@ namespace SF.Async.EasyDI.Extensions
 
 
 
-        public static ITypeCompiler AsCompiler(this EasyTypeDescriptor descriptor, ITypeResolver resolver)
+        public static ICompiler AsCompiler(this EasyTypeDescriptor descriptor, IResolver resolver)
         {
             if (descriptor.ImplementationFactory != null)
             {

@@ -11,7 +11,7 @@ namespace SF.Async.EasyDI
 
          EasyTypeDescriptorItem RemoveInstance(Type key);
 
-         ITypeResolver CreateTypeResolver();
+         IResolver CreateTypeResolver();
 
         void Sync();
     }

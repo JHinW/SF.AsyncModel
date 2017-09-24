@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI
 {
-    using TypeFactory = Func<ITypeResolver, Type>;
+    using TypeFactory = Func<IResolver, Type>;
     public class EasyTypeDescriptor
     {
         private EasyTypeDescriptor(Type serviceType)
@@ -42,7 +42,7 @@ namespace SF.Async.EasyDI
 
         public Type ImplementationType { get; }
 
-        public Func<ITypeResolver, object> ImplementationFactory { get; }
+        public Func<IResolver, object> ImplementationFactory { get; }
 
         public object ImplementationInstance { get; }
 
