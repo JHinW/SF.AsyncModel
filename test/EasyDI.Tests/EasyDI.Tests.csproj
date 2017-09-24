@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -11,6 +9,10 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SF.Async.EasyDI\SF.Async.EasyDI.csproj" />
   </ItemGroup>
 
 </Project>

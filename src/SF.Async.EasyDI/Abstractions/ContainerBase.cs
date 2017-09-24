@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace SF.Async.EasyDI.Abstractions
 {
@@ -10,6 +11,15 @@ namespace SF.Async.EasyDI.Abstractions
         public ContainerBase()
         {
             _container = new ConcurrentDictionary<Type, EasyTypeDescriptorItem>();
+        }
+
+        public ContainerBase(IEnumerable<EasyTypeDescriptor> descriptors)
+        {
+            _container = new ConcurrentDictionary<Type, EasyTypeDescriptorItem>();
+            foreach (var descriptor in descriptors)
+            {
+                this.AddDescriptor(descriptor.ServiceType, descriptor);
+            }
         }
 
         public void AddDescriptor(Type key, EasyTypeDescriptor descriptor)

@@ -7,11 +7,13 @@ namespace SF.Async.EasyDI
     /// </summary>
     public interface IContainer
     {
-         void AddDescriptor(Type key, EasyTypeDescriptor instance);
+        void AddDescriptor(Type key, EasyTypeDescriptor descriptor);
 
-         EasyTypeDescriptorItem RemoveInstance(Type key);
+        EasyTypeDescriptorItem RemoveInstance(Type key);
 
-         IResolver CreateTypeResolver();
+        EasyTypeDescriptorItem this[Type index] { get; }
+
+        IResolver CreateTypeResolver();
 
         void Sync();
     }
