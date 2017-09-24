@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SF.Async.EasyDI.Statics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,22 +7,24 @@ using System.Threading.Tasks;
 
 namespace SF.Async.EasyDI.Compiler
 {
-    public class EnumTypeCompiler : ICompiler
+    public class EnumrableCompiler : ICompiler
     {
         private IList<ICompiler> _compilerList = new List<ICompiler>();
 
         public bool _isCompiled = false;
 
+        private ICompiler _typeCompiler;
 
-        public EnumTypeCompiler()
+        private Type _type;
+
+        public EnumrableCompiler(Type type)
         {
+            _type = type;
         }
-
 
         public ICompiler[] ChildrenCompiler => _compilerList.ToArray();
 
         public bool IsCompiled => _isCompiled;
-
 
         public ICompiler DependencyTo(ICompiler typeCompiler)
         {
@@ -29,25 +32,24 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public ICompiler DependencyTo(ICompiler[] typeCompilers)
-        {
-            foreach (var compiler in typeCompilers)
-            {
-                _compilerList.Add(compiler);
-            }
-
-            return this;
-        }
-
-
         public ICompiler Compile()
         {
             if (!IsCompiled)
             {
-                if(_compilerList.Count() == 0)
+                if (_compilerList.Count() == 0)
                 {
-                    throw new InvalidOperationException("Error: why there is no ChildrenCompiler .");
+                    throw new InvalidOperationException("Error: why there are no ChildrenCompiler .");
                 }
+
+                _typeCompiler = new LazyCompiler(() =>
+                {
+                    var results = _compilerList.Select(complier =>
+                    {
+                        return complier.Compile().Link();
+                    });
+                    return EnumrableHelper.CreateEnumrable(_type, results.ToArray());
+                });
+
                 _isCompiled = true;
             }
 
@@ -56,9 +58,7 @@ namespace SF.Async.EasyDI.Compiler
 
         public object Link()
         {
-            return _compilerList.Select(complier => {
-                return complier.Compile().Link();
-            });
+            return _typeCompiler.Compile().Link();
         }
     }
 }

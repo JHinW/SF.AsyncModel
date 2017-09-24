@@ -73,9 +73,9 @@ namespace SF.Async.EasyDI
             }
             else
             {
-                newItem._item = descriptor;
+                newItem._item = _item;
                 newItem._items = _items ?? new List<EasyTypeDescriptor>();
-                newItem.Add(descriptor);
+                newItem._items.Add(descriptor);
             }
             return newItem;
         }

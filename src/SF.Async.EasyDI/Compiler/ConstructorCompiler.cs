@@ -23,15 +23,13 @@ namespace SF.Async.EasyDI.Compiler
 
         public ConstructorCompiler(ConstructorInfo constructorInfo, IResolver resolver)
         {
-            constructorInfo = _constructorInfo;
+            _constructorInfo = constructorInfo;
             _resolver = resolver;
         }
 
-        public bool IsIEnumerable { get; }
-
         public bool IsCompiled { get => _isCompiled; }
 
-        public ICompiler[] ChildrenCompiler { get=> _compilerList.ToArray(); }
+        public ICompiler[] ChildrenCompiler { get => _compilerList.ToArray(); }
 
         public ICompiler DependencyTo(ICompiler typeCompiler)
         {
@@ -39,21 +37,11 @@ namespace SF.Async.EasyDI.Compiler
             return this;
         }
 
-        public ICompiler DependencyTo(ICompiler[] typeCompilers)
-        {
-            foreach (var compiler in typeCompilers)
-            {
-                _compilerList.Add(compiler);
-            }
-            
-            return this;
-        }
-
         public ICompiler Compile()
         {
             if (!_isCompiled)
             {
-                if(_constructorInfo != null)
+                if (_constructorInfo != null)
                 {
                     _typeCompiler = _constructorInfo.AsCompiler(this, _resolver);
                 }
@@ -63,7 +51,7 @@ namespace SF.Async.EasyDI.Compiler
                 }
                 _isCompiled = true;
             }
-            
+
             return this;
         }
 

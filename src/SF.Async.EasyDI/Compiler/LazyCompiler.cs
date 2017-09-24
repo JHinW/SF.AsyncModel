@@ -12,9 +12,17 @@ namespace SF.Async.EasyDI.Compiler
 
         private Lazy<Object> _lazy = null;
 
+        private Type _originalType;
+
         public LazyCompiler(Func<Object> action)
         {
             _lazy = new Lazy<object>(action);
+        }
+
+        public LazyCompiler(Func<Object> action, Type type)
+        {
+            _lazy = new Lazy<object>(action);
+            _originalType = type;
         }
 
         public ICompiler Compile()
@@ -34,7 +42,7 @@ namespace SF.Async.EasyDI.Compiler
 
         public object Link()
         {
-            return _lazy??_lazy.Value;
+            return _lazy != null? _lazy.Value : null;
         }
     }
 }

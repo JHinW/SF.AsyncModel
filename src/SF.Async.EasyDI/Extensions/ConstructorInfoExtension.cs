@@ -17,24 +17,14 @@ namespace SF.Async.EasyDI.Extensions
         {
             if (constructor == null)
             {
-                throw new InvalidOperationException("Error: constructor is null.");
+                throw new ArgumentNullException("Error: constructor is null.");
             }
 
             var paras = constructor.GetParameters();
             foreach (var para in paras)
             {
-                if (typeResolver.CanBeResolve(para.ParameterType))
-                {
-                    parentCompiler.DependencyTo(
-                       typeResolver
-                       .DecriptorResolve(para.ParameterType)
-                       .AsCompiler(para.ParameterType, typeResolver));
-                }
-                else
-                {
-                    throw new InvalidOperationException("Error: Can not be resolved!");
-
-                }
+                parentCompiler.DependencyTo(
+                    para.ParameterType.AsCompilerFromBaseType(typeResolver));
             }
 
             var param = parentCompiler.ChildrenCompiler.Select(linker =>
@@ -43,9 +33,7 @@ namespace SF.Async.EasyDI.Extensions
             }).ToArray();
 
 
-            Object results = null;
-
-            results = constructor.Invoke(param);
+            Object results = constructor.Invoke(param);
 
             var typeCompiler = new LazyCompiler(() =>
             {

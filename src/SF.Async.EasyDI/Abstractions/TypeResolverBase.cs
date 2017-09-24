@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Abstractions
@@ -27,16 +28,8 @@ namespace SF.Async.EasyDI.Abstractions
 
         public object GetInstance(Type baseType)
         {
-            if (_resolveCheckDelegate(baseType))
-            {
-                var item = _baseTypeToDescriptorItemDelegate(baseType);
-                var compiler = item.AsCompiler(baseType, this);
-                return compiler.Compile().Link();
-            }
-            else
-            {
-                throw new InvalidOperationException("Error: Can not be resolved!");
-            }
+            var compiler = baseType.AsCompilerFromBaseType(this);
+            return compiler.Compile().Link();
         }
         
 
