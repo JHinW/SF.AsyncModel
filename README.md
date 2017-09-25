@@ -28,7 +28,14 @@ If you want to create a modularized app and minimize the dependencies between th
 
 I build a DI of my own: 
 
+![DI image](/resources/compiler.png)
 
-![Alt text](/resources/test.png)
 
+Functional expression:
+```csharp
+   compiler = () =>{
+       return compiler[] => Type => instance;
+   }
+```
 
+How to use EasyDI:
