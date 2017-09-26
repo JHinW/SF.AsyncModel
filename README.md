@@ -26,7 +26,7 @@ you may understand what the "again" means: loop is everywhere.
 
 If you want to create a modularized app and minimize the dependencies between the different parts of your application, Dependency Injection is a good chioce.
 
-I build a DI of my own: 
+I built a DI of my own: 
 
 ![DI image](/resources/compiler.png)
 
