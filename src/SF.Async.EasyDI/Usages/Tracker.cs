@@ -11,8 +11,6 @@ namespace SF.Async.EasyDI.Usages
     public class Tracker : TrackerBase
     {
 
-        private IResolver _resolver;
-
         public Tracker(
           BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
           ResolveCheckDelegate resolveCheckDelegate
@@ -24,13 +22,13 @@ namespace SF.Async.EasyDI.Usages
 
         public override object Track(Type type)
         {
-            _resolver = new TypeResolver(
+            var resolver = new TypeResolver(
                 _baseTypeToDescriptorItemDelegate,
                 _resolveCheckDelegate);
 
-            _resolver.Scope(new HashSet<Type>());
+            resolver.Scope(new HashSet<Type>());
 
-            return _resolver.GetInstance(type);
+            return resolver.GetInstance(type);
         }
     }
 }
