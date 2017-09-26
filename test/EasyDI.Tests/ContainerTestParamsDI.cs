@@ -10,7 +10,7 @@ using Xunit;
 
 namespace EasyDI.Tests
 {
-    public class ContainerTestWithParamsDI
+    public class ContainerTestParamsDI
     {
         [Fact]
         public void paraType_DI_test()

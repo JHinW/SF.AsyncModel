@@ -10,7 +10,7 @@ using Xunit;
 
 namespace EasyDI.Tests
 {
-    public class ContainerTestWithIEnumrable
+    public class ContainerTestIEnumrable
     {
         [Fact]
         public void String_IEnumrable_test()
