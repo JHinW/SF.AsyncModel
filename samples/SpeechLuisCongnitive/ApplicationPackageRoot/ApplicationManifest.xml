@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SpeechLuisCongnitiveType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="Text2IntentionService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="Text2IntentionService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="Text2IntentionService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="Speech2TextService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="Speech2TextService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="Speech2TextService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="Silk2WavService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="Silk2WavService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="Silk2WavService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="SpeechEntry_InstanceCount" DefaultValue="-1" />
+  </Parameters>
+  <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
+       should match the Name and Version attributes of the ServiceManifest element defined in the 
+       ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="Text2IntentionServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="Speech2TextServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="Silk2WavServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="SpeechEntryPkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <DefaultServices>
+    <!-- The section below creates instances of service types, when an instance of this 
+         application type is created. You can also create one or more instances of service type using the 
+         ServiceFabric PowerShell module.
+         
+         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="Text2IntentionService">
+      <StatefulService ServiceTypeName="Text2IntentionServiceType" TargetReplicaSetSize="[Text2IntentionService_TargetReplicaSetSize]" MinReplicaSetSize="[Text2IntentionService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[Text2IntentionService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="Speech2TextService">
+      <StatefulService ServiceTypeName="Speech2TextServiceType" TargetReplicaSetSize="[Speech2TextService_TargetReplicaSetSize]" MinReplicaSetSize="[Speech2TextService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[Speech2TextService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="Silk2WavService">
+      <StatefulService ServiceTypeName="Silk2WavServiceType" TargetReplicaSetSize="[Silk2WavService_TargetReplicaSetSize]" MinReplicaSetSize="[Silk2WavService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[Silk2WavService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="SpeechEntry" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="SpeechEntryType" InstanceCount="[SpeechEntry_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+  </DefaultServices>
+</ApplicationManifest>
