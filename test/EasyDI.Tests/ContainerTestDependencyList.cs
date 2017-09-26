@@ -25,13 +25,9 @@ namespace EasyDI.Tests
                 var intance =  new ClassD(para);
                 return intance;
             });
-
             box.AddDisp<ClassE, ClassE>();
-
             var tracker = box.CreateTracker();
-
             var result = tracker.Track(typeof(ClassE));
-
             Assert.Equal(typeof(ClassE), result.GetType());
 
         }

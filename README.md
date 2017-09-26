@@ -39,3 +39,20 @@ Functional expression:
 ```
 
 How to use EasyDI:
+```csharp
+            
+        var box = new EasyTypeContainer();
+        box.AddDisp<IClassA>(new ClassA());
+        box.AddDisp<IClassB>(typeof(ClassB));
+        box.AddDisp<IClassC, ClassC>();
+        box.AddDisp<IClassD>( factory => {
+            var para = (IClassC)factory.GetInstance(typeof(IClassC));
+            var intance =  new ClassD(para);
+            return intance;
+        });
+
+        box.AddDisp<ClassE, ClassE>();
+        var tracker = box.CreateTracker();
+        var result = tracker.Track(typeof(ClassE));
+
+```
