@@ -31,6 +31,7 @@ namespace SF.Async.EasyDI.Compiler
                 if (_constructorInfo != null)
                 {
                     _typeCompiler = _constructorInfo.AsCompiler(this, _resolver);
+                    _typeCompiler.Compile();
                 }
                 else
                 {
@@ -45,7 +46,7 @@ namespace SF.Async.EasyDI.Compiler
         public override object Link()
         {
             return _typeCompiler
-                .Compile()
+               // .Compile()
                 .Link();
         }
     }

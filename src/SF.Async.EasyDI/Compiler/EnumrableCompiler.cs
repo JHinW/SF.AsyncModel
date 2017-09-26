@@ -37,6 +37,7 @@ namespace SF.Async.EasyDI.Compiler
                     return EnumrableHelper.CreateEnumrable(_type, results.ToArray());
                 });
 
+                _typeCompiler.Compile();
                 _isCompiled = true;
             }
 
@@ -45,7 +46,9 @@ namespace SF.Async.EasyDI.Compiler
 
         public override object Link()
         {
-            return _typeCompiler.Compile().Link();
+            return _typeCompiler
+               // .Compile()
+                .Link();
         }
     }
 }

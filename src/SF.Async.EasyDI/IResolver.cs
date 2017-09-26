@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SF.Async.EasyDI
 {
@@ -9,5 +10,11 @@ namespace SF.Async.EasyDI
         bool CanBeResolve(Type baseType);
 
         EasyTypeDescriptorItem DecriptorResolve(Type baseType);
+
+        void Scope(HashSet<Type> resolvingTypeSet);
+
+        bool IsResolving(Type baseType);
+
+        void AddToScopeSet(Type baseType);
     }
 }

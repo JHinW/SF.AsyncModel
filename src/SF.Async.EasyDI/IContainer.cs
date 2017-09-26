@@ -15,6 +15,8 @@ namespace SF.Async.EasyDI
 
         IResolver CreateTypeResolver();
 
+        ITracker CreateTracker();
+
         void Sync();
     }
 }

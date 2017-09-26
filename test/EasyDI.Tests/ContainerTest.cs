@@ -15,9 +15,11 @@ namespace EasyDI.Tests
             var container = new EasyTypeContainer();
             var discripor = EasyTypeDescriptor.Create(typeof(string), "hellow world!");
             container.AddDescriptor(typeof(string), discripor);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(string));
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(string));
+
 
             Assert.Equal("hellow world!", result);
         }
@@ -29,9 +31,10 @@ namespace EasyDI.Tests
             var container = new EasyTypeContainer();
             var discripor = EasyTypeDescriptor.Create(typeof(ClassWithParamLessConstructor), new ClassWithParamLessConstructor());
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }
@@ -46,9 +49,11 @@ namespace EasyDI.Tests
                 return new ClassWithParamLessConstructor();
             });
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
+
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }
@@ -62,9 +67,10 @@ namespace EasyDI.Tests
                 typeof(ClassWithParamLessConstructor),
                typeof(ClassWithParamLessConstructor));
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }

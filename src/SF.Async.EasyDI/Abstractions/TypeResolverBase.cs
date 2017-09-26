@@ -14,7 +14,7 @@ namespace SF.Async.EasyDI.Abstractions
 
         public ResolveCheckDelegate _resolveCheckDelegate;
 
-
+        private HashSet<Type> _resolvingTypeSet;
 
         public TypeResolverBase(
             BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
@@ -31,8 +31,6 @@ namespace SF.Async.EasyDI.Abstractions
             var compiler = baseType.AsCompilerFromBaseType(this);
             return compiler.Compile().Link();
         }
-        
-
 
         public bool CanBeResolve(Type baseType)
         {
@@ -44,6 +42,21 @@ namespace SF.Async.EasyDI.Abstractions
             //if (CanBeResolve(baseType)) throw new InvalidOperationException("Error: Can not be resolved!");
 
             return _baseTypeToDescriptorItemDelegate(baseType);
+        }
+
+        public void Scope(HashSet<Type> resolvingTypeSet)
+        {
+            _resolvingTypeSet = resolvingTypeSet;
+        }
+
+        public bool IsResolving(Type baseType)
+        {
+            return _resolvingTypeSet.Contains(baseType);
+        }
+
+        public void AddToScopeSet(Type baseType)
+        {
+            _resolvingTypeSet.Add(baseType);
         }
     }
 }

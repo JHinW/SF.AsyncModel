@@ -25,9 +25,10 @@ namespace EasyDI.Tests
             container.AddDescriptor(typeof(ClassWithParamConstructor), discripor);
             container.AddDescriptor(typeof(string), discripor2);
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor2);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(ClassWithParamConstructor));
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(ClassWithParamConstructor));
 
             Assert.Equal(typeof(ClassWithParamConstructor), result.GetType());
         }
@@ -45,9 +46,10 @@ namespace EasyDI.Tests
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
             container.AddDescriptor(typeof(string), discripor2);
             container.AddDescriptor(typeof(ClassWithTwoParamConstructor), discripor3);
-            var resolver = container.CreateTypeResolver();
 
-            var result = resolver.GetInstance(typeof(ClassWithTwoParamConstructor));
+            var tracker = container.CreateTracker();
+
+            var result = tracker.Track(typeof(ClassWithTwoParamConstructor));
 
             Assert.Equal(typeof(ClassWithTwoParamConstructor), result.GetType());
         }

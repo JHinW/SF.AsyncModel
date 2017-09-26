@@ -56,5 +56,7 @@ namespace SF.Async.EasyDI.Abstractions
         {
             throw new NotImplementedException();
         }
+
+        public abstract ITracker CreateTracker();
     }
 }

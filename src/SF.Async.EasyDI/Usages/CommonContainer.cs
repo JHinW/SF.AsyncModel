@@ -14,6 +14,14 @@ namespace SF.Async.EasyDI.Usages
         {
         }
 
+        public override ITracker CreateTracker()
+        {
+            return new Tracker(
+                type => this[type],
+                type => this.IsHasKey(type)
+                );
+        }
+
         public override IResolver CreateTypeResolver()
         {
             return new TypeResolver(

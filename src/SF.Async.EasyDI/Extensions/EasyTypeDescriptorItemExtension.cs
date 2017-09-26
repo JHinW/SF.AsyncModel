@@ -26,31 +26,5 @@ namespace SF.Async.EasyDI.Extensions
                 return item.Last.AsCompiler(resolver);
             }
         }
-
-        public static ICompiler AsCompiler(this EasyTypeDescriptorItem item, Type baseType, IResolver resolver)
-        {
-            var realBaseType = baseType;
-            if (baseType.IsGenericType)
-            {
-                var generics = baseType.GetGenericArguments();
-                if (generics.Count() == 1)
-                {
-                    realBaseType = generics[0];
-
-                }
-            }
-
-            if (resolver.CanBeResolve(baseType))
-            {
-                return item.AsCompiler((baseType is IEnumerable), resolver);
-            }
-            else
-            {
-                throw new InvalidCastException("Error: Can not be resolved!");
-            }
-
-
-        }
-
     }
 }

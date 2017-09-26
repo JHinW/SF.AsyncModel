@@ -22,18 +22,37 @@ namespace EasyDI.Tests
             box.AddDisp<IClassC, ClassC>();
             box.AddDisp<IClassD>( factory => {
                 var para = (IClassC)factory.GetInstance(typeof(IClassC));
-                var xx =  new ClassD(para);
-                return xx;
+                var intance =  new ClassD(para);
+                return intance;
             });
 
             box.AddDisp<ClassE, ClassE>();
 
-            var resolver = box.CreateTypeResolver();
+            var tracker = box.CreateTracker();
 
-            var result = resolver.GetInstance(typeof(ClassE));
+            var result = tracker.Track(typeof(ClassE));
 
             Assert.Equal(typeof(ClassE), result.GetType());
 
+        }
+
+        [Fact]
+        public void paraType_DI_Interface_Tracker()
+        {
+            var box = new EasyTypeContainer();
+            box.AddDisp<IClassA>(new ClassA());
+            box.AddDisp<IClassB>(typeof(ClassB_CircularDepdencyCheck));
+            box.AddDisp<IClassC, ClassC>();
+            box.AddDisp<IClassD>(factory => {
+                var para = (IClassC)factory.GetInstance(typeof(IClassC));
+                var intance = new ClassD(para);
+                return intance;
+            });
+
+            box.AddDisp<ClassE, ClassE>();
+            var tracker = box.CreateTracker();
+            var ex = Assert.Throws<InvalidOperationException>(() => tracker.Track(typeof(ClassE)));
+            Assert.Equal("Error: Circular Dependency.", ex.Message);
         }
     }
 }
