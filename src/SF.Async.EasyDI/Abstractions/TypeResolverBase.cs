@@ -7,14 +7,12 @@ using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Abstractions
 {
-    public abstract class TypeResolverBase : IResolver
+    public abstract class TypeResolverBase: IResolver
     {
 
         public BaseTypeToDescriptorItemDelegate _baseTypeToDescriptorItemDelegate;
 
         public ResolveCheckDelegate _resolveCheckDelegate;
-
-        private HashSet<Type> _resolvingTypeSet;
 
         public TypeResolverBase(
             BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
@@ -26,9 +24,10 @@ namespace SF.Async.EasyDI.Abstractions
         }
 
 
-        public object GetInstance(Type baseType)
+        public virtual object GetInstance(Type baseType)
         {
-            var compiler = baseType.AsCompilerFromBaseType(this);
+            var compiler = baseType.AsCompilerFromBaseType(this); ;
+           
             return compiler.Compile().Link();
         }
 
@@ -44,19 +43,10 @@ namespace SF.Async.EasyDI.Abstractions
             return _baseTypeToDescriptorItemDelegate(baseType);
         }
 
-        public void Scope(HashSet<Type> resolvingTypeSet)
-        {
-            _resolvingTypeSet = resolvingTypeSet;
-        }
+        public abstract void Scope(HashSet<Type> resolvingTypeSet);
 
-        public bool IsResolving(Type baseType)
-        {
-            return _resolvingTypeSet.Contains(baseType);
-        }
+        public abstract bool IsResolving(Type baseType);
 
-        public void AddToScopeSet(Type baseType)
-        {
-            _resolvingTypeSet.Add(baseType);
-        }
+        public abstract void AddToScopeSet(Type baseType);
     }
 }

@@ -27,9 +27,9 @@ namespace EasyDI.Tests
             Type type = typeof(string);
             // type.ReflectedType.
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(IEnumerable<string>));
+            var result = resolver.GetInstance(typeof(IEnumerable<string>));
 
 
             Assert.Equal(true, typeof(IEnumerable<string>).IsAssignableFrom(result.GetType()));

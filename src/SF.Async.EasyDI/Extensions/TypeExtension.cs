@@ -47,7 +47,6 @@ namespace SF.Async.EasyDI.Extensions
 
         public static ICompiler AsCompilerFromBaseType(this Type baseType, IResolver resolver)
         {
-
             if (resolver.IsResolving(baseType))
             {
                 throw new InvalidOperationException("Error: Circular Dependency.");

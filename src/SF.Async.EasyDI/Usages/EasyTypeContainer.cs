@@ -20,7 +20,7 @@ namespace SF.Async.EasyDI.Usages
 
         public override IResolver CreateTypeResolver()
         {
-            return new TypeResolver(
+            return new TypeResolverScoped(
                 type => this[type],
                 type => this.IsHasKey(type)
                 );

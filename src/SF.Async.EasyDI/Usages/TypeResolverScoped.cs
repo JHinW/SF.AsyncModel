@@ -1,17 +1,21 @@
 ﻿using SF.Async.EasyDI.Abstractions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static SF.Async.EasyDI.DIDelegatesDefinitions;
 
 namespace SF.Async.EasyDI.Usages
 {
-    public class TypeResolver : TypeResolverBase
+    public class TypeResolverScoped: TypeResolverScopedBase
     {
-        public TypeResolver(
+        public TypeResolverScoped(
           BaseTypeToDescriptorItemDelegate baseTypeToDescriptorItemDelegate,
           ResolveCheckDelegate resolveCheckDelegate
-          ): base(baseTypeToDescriptorItemDelegate,
+          ) : base(baseTypeToDescriptorItemDelegate,
               resolveCheckDelegate)
         {
         }
-
     }
 }

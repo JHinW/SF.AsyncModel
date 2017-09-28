@@ -13,7 +13,7 @@ namespace EasyDI.Tests
     public class ContainerTestParamsDI
     {
         [Fact]
-        public void paraType_DI_test()
+        public void ParaType_DI_test()
         {
             var container = new EasyTypeContainer();
             var discripor = EasyTypeDescriptor.Create(
@@ -26,15 +26,15 @@ namespace EasyDI.Tests
             container.AddDescriptor(typeof(string), discripor2);
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor2);
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(ClassWithParamConstructor));
+            var result = resolver.GetInstance(typeof(ClassWithParamConstructor));
 
             Assert.Equal(typeof(ClassWithParamConstructor), result.GetType());
         }
 
         [Fact]
-        public void paraType_DI_test_two_inputs()
+        public void ParaType_DI_test_two_inputs()
         {
             var container = new EasyTypeContainer();
             var discripor = EasyTypeDescriptor.Create(
@@ -47,9 +47,9 @@ namespace EasyDI.Tests
             container.AddDescriptor(typeof(string), discripor2);
             container.AddDescriptor(typeof(ClassWithTwoParamConstructor), discripor3);
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(ClassWithTwoParamConstructor));
+            var result = resolver.GetInstance(typeof(ClassWithTwoParamConstructor));
 
             Assert.Equal(typeof(ClassWithTwoParamConstructor), result.GetType());
         }

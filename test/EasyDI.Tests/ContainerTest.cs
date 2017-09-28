@@ -16,10 +16,9 @@ namespace EasyDI.Tests
             var discripor = EasyTypeDescriptor.Create(typeof(string), "hellow world!");
             container.AddDescriptor(typeof(string), discripor);
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(string));
-
+            var result = resolver.GetInstance(typeof(string));
 
             Assert.Equal("hellow world!", result);
         }
@@ -32,9 +31,9 @@ namespace EasyDI.Tests
             var discripor = EasyTypeDescriptor.Create(typeof(ClassWithParamLessConstructor), new ClassWithParamLessConstructor());
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
+            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }
@@ -51,9 +50,9 @@ namespace EasyDI.Tests
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
 
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
+            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }
@@ -68,9 +67,9 @@ namespace EasyDI.Tests
                typeof(ClassWithParamLessConstructor));
             container.AddDescriptor(typeof(ClassWithParamLessConstructor), discripor);
 
-            var tracker = container.CreateTracker();
+            var resolver = container.CreateTypeResolver();
 
-            var result = tracker.Track(typeof(ClassWithParamLessConstructor));
+            var result = resolver.GetInstance(typeof(ClassWithParamLessConstructor));
 
             Assert.Equal(typeof(ClassWithParamLessConstructor), result.GetType());
         }

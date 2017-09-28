@@ -14,7 +14,7 @@ namespace EasyDI.Tests
     public class ContainerTestDependencyList
     {
         [Fact]
-        public void paraType_DI_Interface()
+        public void ParaType_DI_Interface()
         {
             var box = new EasyTypeContainer();
             box.AddDisp<IClassA>(new ClassA());
@@ -33,7 +33,7 @@ namespace EasyDI.Tests
         }
 
         [Fact]
-        public void paraType_DI_Interface_Tracker()
+        public void ParaType_DI_Interface_Tracker()
         {
             var box = new EasyTypeContainer();
             box.AddDisp<IClassA>(new ClassA());

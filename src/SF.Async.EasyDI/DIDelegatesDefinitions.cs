@@ -12,5 +12,7 @@ namespace SF.Async.EasyDI
 
 
         public delegate bool ResolveCheckDelegate(Type baseType);
+
+        public delegate ICompiler GetOrCreateDelegate(Type baseType, Func<ICompiler> factory);
     }
 }
